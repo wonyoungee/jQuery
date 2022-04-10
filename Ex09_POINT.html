@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        /*
+         *      [Javascript]
+         *      1. for (let index in Array) { Array[index] }
+         *      2. Object(json) : for (let key in jsonObj) { jsonObj[key] }
+         *      3. array.forEach ( function (value, index, array) { }   // 콜백함수)
+         *      4. map()    // return Array =>  조작가능
+         *      
+         *      
+         *      [jQuery]    $().each()  :   반복구문    >>  기존 array.forEach 가지고 모방     - body안의 요소에 대한..
+         *      1. $(selector).each ( function ( ) { // this 활용시 parameter 필요 X} );
+         *      2. $(selector).each ( function(index) { // this 활용 } );
+         *      3. $(selector).each ( function(index, element) { // element 활용 } );     가지고 놀기^^
+         *      
+         *      [jQuery] - 개발자가 배열이나 객체를 만든 경우
+         *      1. $.each(Array or Object , function(){//this활용});
+         *      2. $.each(Array or Object , function(index){//this활용});
+         *      3. $.each(Array or Object , function(index, element){//element활용});
+         *      
+         *      ex) let obj = {name="홍길동", age=100};
+         *            $(obj).each(function(key, value){value});
+         *            $.each(obj, function(key, value){value});
+         */
+
+        $(document).ready(function () {
+            $('p').each(function () {
+                // callback함수 3번 호출 - p태그 3개이므로..
+                // this >>  각각의 <p> 잡아옴
+                // $(this).jquery가 제공하는 다양한 함수
+                console.log(this);
+                console.log("this : " + $(this).text());
+            });
+            $('p').each(function (index) {
+                console.log("index : " + index);
+                console.log(this);
+                //index 활용 - 식별자 가공
+                //$(this).attr("id", "param-" + index);
+                //$(this).attr("style", "color:red");
+                $(this).attr(
+                    {
+                        "id": "param-" + index,
+                        "style" : "color:red"
+                    }
+                );
+            });
+
+            // this 안쓰고 ... parameter 활용
+            $('p').each(function (index, element) {
+                console.log("index : " + index);
+                console.log(element);
+                console.log("element : " + $(element).text());
+            });
+
+            $('#btn').click(function () {
+                alert($('#param-1').text());
+            });
+
+            /*
+             *      let arr = ["사과", "배"];      >>   push(), pop()
+             *      let obj = { };      // json 객체
+             *      let arrobj = [{ }, { }, { }]    //객체 배열
+             */
+
+            const arra = [
+                {"name" :  "naver", "link" : "www.naver.com"},
+                {"name" : "daum" , "link" : "www.daum.net"},
+                {"name" : "kosa"   , "link" : "www.kosa.or.kr"}
+            ];
+
+            // 문제 $.each(Array or Object , function(index, element) {});
+            // 활용해서 name의 value값하고 link의 value값을 출력하세요.
+            $.each(arra, function (index, obj) {
+                console.log(obj.name + " / " + obj["link"]);
+                // POINT : 객체.속성명 or 객체["속성명"]
+            });
+
+            let boardobj = {
+                "values": [
+                                    { "no": 1, "title": "hello, world" },
+                                    { "no": 2, "title": "korea" },
+                                    { "no": 3, "title": "world" },
+                                ],
+                "search": "검색"
+            };
+            //1. $.each() 사용해서 no값, title값을 출력하세요
+            $.each(boardobj.values, function (index, obj) {
+                console.log(obj.no+ " / " + obj["title"]);
+            });
+            //2. $.each() 사용해서 no, title, search값 출력하세요. (KEY POINT)
+            $.each(boardobj, function (key, value) {
+                // 타입비교 (논리를 다르게)
+                if (typeof (value) == "object") {   // Array or Json 객체
+                    $.each(boardobj.values, function (index, obj) {
+                        console.log(obj.no + " / " + obj["title"]);
+                    });
+                } else {    // text
+                    console.log(value);
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <p>C#</p>
+    <p>JAVA</p>
+    <p>MSSQL</p>
+    <input type="button"  value="click" id="btn" />
+</body>
+</html>

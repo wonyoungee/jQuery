@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Selector&Read/Write</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {     // ready == onload
+            // 선택자 (안쪽게 우선)
+            $('body > *').css("color", "gold"); // 바디의 모든 자식요소
+            $('div > *').css("color", "red");   // div의 모든 자식요소
+            $('input[type=text]').css("color", "green");    // 속성 선택자
+
+            // setter(write)  >>  모든 요소에 적용됨
+            //$('input[type=text]').val("hong");  //input[type=text]인 모든 요소에 value="hong" 적용
+
+            console.log($('input[type=text]').val());   // AAA
+            // getter(read) >>  계층트리형태에서 처음 만나는 요소 값만 가져옴
+
+            $('input[type=password]').val("1111");
+            $('tr:odd').css("background", "gray");  // 1,3,5...
+            $('tr:even').css("background", "pink"); //0,2,4....
+
+            // jQuery 하고 js 혼합 사용가능
+            setTimeout(function () {
+                let value = $('select > option:selected').val();
+                alert("select tag value : " + value);
+            }, 3000)
+        });
+
+        /*
+         * 기존 태그 : value, text (innerText, innerHTML)
+         * jquery 3개 함수 (val(), text(), html()) >>  read , write    >>  getter , setter
+             ex) val('홍길동')   >>  wrtie   (setter)
+                   val()               >>  read    (getter)
+                
+         * jQuery는 id활용 (식별자)
+           <input type="text" id="userid" value="aaa"/>     $('#userid').val()      >>  "aaa"
+           <input type="text" id="userid" value="aaa"/>     $('#userid').val("bbb")     >>  value="bbb" 로 바뀜
+                                                          기존 DOM 표현=> document.getElementById("userid").value = "bbb";
+         */
+    </script>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>사과</li>
+            <li>배</li>
+            <li>수박</li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li>사과2</li>
+            <li>배2</li>
+            <li>수박2</li>
+        </ul>
+    </div>
+    <input type="text" value="AAA">
+    <input type="text" value="BBB">
+    <input type="text" value="CCC">
+    <input type="password">
+    <input type="radio">
+    <input type="file">
+    <hr>
+    <table>
+        <tr>
+            <td>이름</td>
+            <td>나이</td>
+            <td>취미</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>50</td>
+            <td>훔치기</td>
+        </tr>
+        <tr>
+            <td>이순신</td>
+            <td>10</td>
+            <td>싸움</td>
+        </tr>
+        <tr>
+            <td>학생</td>
+            <td>30</td>
+            <td>잠자기</td>
+        </tr>
+    </table>
+    <hr>
+    <select>
+        <option>농구</option>
+        <option>축구</option>
+        <option>야구</option>
+        <option>배구</option>
+    </select>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function javascriptFunc() {
+            let arrayobj = [];
+
+            // {} 객체 형태로 데이터...
+            // {"th":101th, "name":홍길동, "num":10} ...
+            // [{}, {}, {}] 객체배열
+            // arrayobj.push({});
+
+            $('table > tbody > tr').each(function () {
+                console.log($(this).children().eq(0).text());
+
+                arrayobj.push(
+                    {
+                        "th": $(this).children().eq(0).text(),
+                        "name": $(this).children().eq(1).text(),
+                        "num": $(this).children().eq(2).text()
+                    }
+                );
+            });
+            console.log(arrayobj);  // 객체배열 만들어짐
+
+            let output = "";
+            for (let i = 0; i < arrayobj.length; i++) {
+                output += arrayobj[i].th + "," +
+                    arrayobj[i].name + "," +
+                    arrayobj[i].num + "<br>";
+            }
+            $('#display').append(output);
+
+            // jQuery each문
+            // display2 append
+            $.each(arrayobj, function (index, obj) {
+                $("#display2").append(obj.th + ", " + obj.name + ", " + obj.num + "<br>");
+            });
+        }
+    </script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>기수</td>
+                <td>이름</td>
+                <td>번호</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>101th</td>
+                <td>홍길동</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>102th</td>
+                <td>김유신</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>103th</td>
+                <td>유관순</td>
+                <td>30</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <button onclick="javascriptFunc()">함수호출</button>
+    </p>
+    <div id="display"></div>
+    <div id="display2"></div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Event & select 태그 & Toggle함수</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function () { //  == $(document).ready(function () { 
+            // 모든 요소가 로딩되고 나서
+            // 이벤트
+            $('#btncopy').click(function () {
+                $('#txtcopyuserid').val($('#txtuserid').val());  // read & write
+            });
+
+            //select 태그
+            $('#select_hobby').change(function () {
+                const text = $(':selected').text(); //select 태그가 하나일때만 사용가능
+                const text2 = $('#select_hobby option:selected').text();    // select 태그 여러개일때 사용가능
+                const val = $('#select_hobby').val();   // value가 없으면 text가 value를 대체
+
+                console.log(text);
+                console.log(text2);
+                console.log(val);
+            });
+
+            $('#txtpwd2').keyup(function () {   // keyup()  >>  키보드에서 손을 떼는 순간 이벤트 발생
+                if ($('#txtpwd').val() != $('#txtpwd2').val()) {
+
+                    $('#message').text("<h3>암호가 일치하지 않아요</h3>");
+                    // <h3>암호가 일치하지 않아요</h3>    >>  문자열 그대로 나옴
+
+                } else {
+                    $('#message').html("<h3>암호가 일치</h3>");
+                    // 암호가 일치   >>  <h3>태그를 인식
+                }
+            });
+
+            $('input').focus(function () {
+                console.log($(this));   // this >>  $(this)     : jquery가 가지는 다양한 함수를 사용가능
+                // input 태그가 여러개일때 this를 사용하면 선택한 input태그만 적용!!
+                $(this).css("background-color", "gray");
+            });
+
+            $('input').blur(function () {
+                console.log($(this));   // this >>  $(this)     : jquery가 가지는 다양한 함수를 사용가능
+                $(this).css("background-color", "white");
+            });
+
+            // toggle 함수 (on or off)
+            // .hover(function(){}, function(){})
+            $('p').hover(function () {
+                $(this).css('background-color', "gold");
+            }, function () {
+                $(this).css('background-color', "red");
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <p>Jquery hover(mouseover , mouseleave)</p>
+
+    ID:<input type="text" id="txtuserid">
+    <hr>
+    <input type="button" id="btncopy" value="copy">
+    <hr>
+    Copy ID:<input type="text" id="txtcopyuserid">
+
+    <hr>
+    <select id="select_hobby">
+        <option value="JAVA">java</option>
+        <option value="SCRIPT">script</option>
+        <option>jdbc</option>
+    </select>
+    <br>
+    <input type="text" id="txtselect">
+    <hr>
+    <table style="border: 1px solid red;">
+        <tr>
+            <td>암호</td>
+            <td>
+                <input type="text" id="txtpwd" size="20" maxlength="5">
+            </td>
+        </tr>
+        <tr>
+            <td>암호확인</td>
+            <td>
+                <input type="text" id="txtpwd2" size="20" maxlength="5">
+            </td>
+        </tr>
+    </table>
+    <div id="message" style="color: red"></div>
+
+</body>
+</html>
